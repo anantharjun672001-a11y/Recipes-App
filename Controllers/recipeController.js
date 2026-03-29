@@ -37,3 +37,17 @@ export const getRecipeById = async (req,res) => {
         res.status(500).json({message: error.message});
     }
 }
+
+//Update Recipe
+
+export const updateRecipe = async (req,res) =>{
+    try {
+        const recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        if (!recipe) {
+            return res.status(404).json({message: "Recipe not found"});
+        }
+        res.status(200).json(recipe);
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+}
